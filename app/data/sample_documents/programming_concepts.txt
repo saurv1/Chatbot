@@ -1,0 +1,9 @@
+Programming involves writing instructions for computers to execute. Basic concepts include variables, data types, control structures, functions, and algorithms.
+
+Variables store data values. Common data types include integers, floats, strings, booleans, arrays, and objects. Control structures include conditional statements (if-else) and loops (for, while).
+
+Functions are reusable blocks of code that perform specific tasks. Algorithms are step-by-step procedures for solving problems.
+
+Object-Oriented Programming (OOP) principles include encapsulation, inheritance, polymorphism, and abstraction. Functional programming emphasizes pure functions and immutable data.
+
+Common programming paradigms include imperative, declarative, procedural, and event-driven programming. Version control systems like Git help manage code changes.

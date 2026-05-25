@@ -1,0 +1,9 @@
+Physics is the natural science that studies matter, its fundamental constituents, its motion and behavior through space and time, and the related entities of energy and force.
+
+Classical mechanics describes the motion of macroscopic objects. Key principles include Newton's laws of motion, conservation of energy, and conservation of momentum.
+
+Electromagnetism studies electric and magnetic fields and their interactions with matter. Thermodynamics deals with heat, work, temperature, and energy transfer.
+
+Quantum mechanics describes nature at the smallest scales of energy levels of atoms and subatomic particles. Relativity theory deals with physics in frames of reference that are moving relative to each other.
+
+Fundamental forces include gravity, electromagnetic force, strong nuclear force, and weak nuclear force.

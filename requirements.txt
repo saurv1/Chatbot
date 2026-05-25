@@ -1,0 +1,36 @@
+
+# Core LangChain dependencies
+langchain
+langchain-community
+langchain-core
+
+# Hugging Face transformers
+transformers
+
+# PyTorch (CPU version for Windows)
+torch
+
+# Embeddings
+sentence-transformers
+
+# Vector database
+chromadb
+
+# Web interfaces
+streamlit
+fastapi
+uvicorn
+flask
+
+# Utilities
+pydantic
+requests
+python-dotenv
+
+# Jupyter for notebooks
+jupyter
+ipywidgets
+tqdm
+
+# Testing
+pytest

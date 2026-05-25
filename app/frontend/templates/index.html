@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Chatbot Tutor with Memory{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-cog"></i> Settings</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="sessionId" class="form-label">Session ID</label>
+                    <input type="text" class="form-control" id="sessionId" value="default-session">
+                </div>
+                <button id="clearBtn" class="btn btn-warning btn-sm w-100">
+                    <i class="fas fa-broom"></i> Clear Conversation
+                </button>
+                <hr>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="ragToggle" checked>
+                    <label class="form-check-label" for="ragToggle">Enable RAG</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6><i class="fas fa-lightbulb"></i> Tips</h6>
+            </div>
+            <div class="card-body">
+                <small>
+                    <ul class="list-unstyled">
+                        <li>• Ask about math, physics, or programming</li>
+                        <li>• The chatbot remembers conversation history</li>
+                        <li>• RAG provides context-aware answers</li>
+                    </ul>
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-graduation-cap"></i> Tutor Chat</h5>
+                <span id="status" class="badge bg-success">Connected</span>
+            </div>
+            <div class="card-body">
+                <div id="chatContainer" class="chat-container mb-3 p-3 border rounded">
+                    <div class="message bot-message">
+                        <strong>Tutor:</strong> Hello! I'm your educational assistant. How can I help you learn today?
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" id="messageInput" class="form-control" placeholder="Ask your question..." autocomplete="off">
+                    <button id="sendBtn" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Send
+                    </button>
+                </div>
+                
+                <div id="typingIndicator" class="typing-indicator mt-2">
+                    <div class="message bot-message">
+                        <strong>Tutor:</strong> <i class="fas fa-ellipsis-h"></i> Thinking...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const API_BASE = 'http://localhost:8000';
+    
+    function addMessage(content, isUser = false) {
+        const chatContainer = document.getElementById('chatContainer');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+        messageDiv.innerHTML = `<strong>${isUser ? 'You' : 'Tutor'}:</strong> ${content}`;
+        chatContainer.appendChild(messageDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    
+    function showTyping() {
+        document.getElementById('typingIndicator').style.display = 'block';
+    }
+    
+    function hideTyping() {
+        document.getElementById('typingIndicator').style.display = 'none';
+    }
+    
+    async function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const message = input.value.trim();
+        
+        if (!message) return;
+        
+        // Add user message
+        addMessage(message, true);
+        input.value = '';
+        
+        // Show typing indicator
+        showTyping();
+        
+        try {
+            const sessionId = document.getElementById('sessionId').value;
+            const response = await fetch(`${API_BASE}/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: message,
+                    session_id: sessionId
+                })
+            });
+            
+            const data = await response.json();
+            hideTyping();
+            addMessage(data.response);
+            
+        } catch (error) {
+            hideTyping();
+            addMessage('Sorry, I encountered an error. Please try again.');
+            console.error('Error:', error);
+        }
+    }
+    
+    async function clearConversation() {
+        const sessionId = document.getElementById('sessionId').value;
+        
+        try {
+            await fetch(`${API_BASE}/memory/clear`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    session_id: sessionId
+                })
+            });
+            
+            const chatContainer = document.getElementById('chatContainer');
+            chatContainer.innerHTML = `
+                <div class="message bot-message">
+                    <strong>Tutor:</strong> Hello! I'm your educational assistant. How can I help you learn today?
+                </div>
+            `;
+            
+            alert('Conversation cleared!');
+        } catch (error) {
+            alert('Error clearing conversation');
+            console.error('Error:', error);
+        }
+    }
+    
+    // Event listeners
+    document.getElementById('sendBtn').addEventListener('click', sendMessage);
+    document.getElementById('messageInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+    document.getElementById('clearBtn').addEventListener('click', clearConversation);
+    
+    // Focus on input
+    document.getElementById('messageInput').focus();
+</script>
+{% endblock %}

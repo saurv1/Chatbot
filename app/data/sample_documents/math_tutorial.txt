@@ -1,0 +1,7 @@
+Mathematics is the study of numbers, quantities, shapes, and patterns. Basic arithmetic operations include addition, subtraction, multiplication, and division. 
+
+Algebra introduces variables and equations, allowing us to solve problems with unknown quantities. Geometry deals with shapes, sizes, and properties of space.
+
+Calculus is the mathematical study of continuous change, with two main branches: differential calculus and integral calculus. Statistics involves collecting, analyzing, and interpreting data.
+
+Key mathematical concepts include functions, graphs, derivatives, integrals, probability, and matrices. Mathematics is fundamental to science, engineering, economics, and many other fields.
