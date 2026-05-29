@@ -6,10 +6,10 @@ from typing import List, Dict, Any
 import chromadb
 from chromadb.config import Settings
 
-try:
-    from .embeddings import EmbeddingModel
-except ImportError:
-    from .embeddings_simple import SimpleEmbeddingModel as EmbeddingModel
+# try:
+from .embeddings import EmbeddingModel 
+# except ImportError:
+#     from .embeddings_simple import SimpleEmbeddingModel as EmbeddingModel
 
 class RAGSystem:
     def __init__(self, persist_directory: str = "./chroma_db"):
