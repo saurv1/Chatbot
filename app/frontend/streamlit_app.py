@@ -120,13 +120,13 @@ def main():
         
         # API status with auto-refresh
         if check_api_connection():
-            st.success("✅ API Connected")
+            st.success(" API Connected")
             st.info(f"Connected to: {st.session_state.api_base_url}")
         else:
-            st.error("❌ API Not Connected")
+            st.error(" API Not Connected")
             st.info("Please make sure the API server is running on port 8000")
             
-            if st.button("🔄 Retry Connection"):
+            if st.button(" Retry Connection"):
                 st.rerun()
         
         # Session management
@@ -135,7 +135,7 @@ def main():
             value=st.session_state.session_id
         )
         
-        if st.button("🔄 Clear Conversation", use_container_width=True):
+        if st.button(" Clear Conversation", use_container_width=True):
             clear_conversation()
             st.rerun()
         
